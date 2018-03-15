@@ -1,0 +1,207 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+<head>
+	<script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+	<script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+	<style type="text/css"></style>
+	<meta content="no-siteapp" http-equiv="Cache-Control">
+	<link  media="handheld" rel="alternate">
+	<!-- end 云适配 -->
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>IT求职网-最靠谱的互联网招聘平台</title>
+	<link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'css/external.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'css/popup.css' %}" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+	<script src="{% static 'js/jquery.lib.min.js' %}" type="text/javascript"></script>
+	<script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery-hbzx.js' %}"></script>
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="style/js/excanvas.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+		var youdao_conv_id = 271546; 
+	</script> 
+	<script src="{% static 'js/conv.js' %}" type="text/javascript"></script>
+</head>
+{% endblock %}
+{% block content %}
+	<!--内容区模块-->
+		<div id="container">
+			<div class="clearfix">
+			
+			<!--左边内容模块-->
+				<div class="content_l">
+					<dl class="job_detail">
+					<!--模块一-->
+						<dt>
+							<h1 title="职位详情页title">
+								<div>{{ interview.company }}</div>
+								{{ interview.title }}
+							</h1>
+							<!--收藏标签-->
+							<div class="jd_collection" id="jobCollection">
+								<div class="jd_collection_success">
+									<span>已成功收藏该职位，</span>
+									<a class="jd_collection_page" href="collections.html">查看全部</a>								
+									<a class="jd_collection_x" href="javascript:;"></a>
+								</div>
+							</div>
+						</dt>
+						<dd class="job_request">
+							<span class="red">{{ interview.get_salary_display }}</span>
+							<span><em class="c19">/{{ interview.get_location_display}}</em></span>
+							<span><em class="c19">/{{ interview.get_yearsRequire_display }}</em></span>
+							<span><em class="c19">/{{ interview.get_education_display }}</em></span>
+							<span><em class="c19">/{{ interview.get_workType_display }}</em></span><br>
+                            <span><em class="c19">职位诱惑 : </em><em class="c19">{{ interview.des }}</em></span>
+							<div>发布时间：{{ interview.pub_time }}</div>
+						</dd>
+						
+						
+					<!--模块二-->
+						<dd class="job_bt">
+							<h3 class="description">职位描述</h3>
+
+							<p>
+                                <span>
+                                     <em class="c19">
+                                        {% autoescape off %}
+                                        {{ interview.content }}
+                                        {% endautoescape %}
+                                     </em>
+                                 </span>
+                            </p>
+						</dd>
+						
+						<dd class="job_bt">
+							<h3 class="description">工作地址</h3>
+							<div class="row">
+								<div class="col-md-8">
+								<!-- 百度地图  -->
+									<iframe width="100%" height="300px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"src="{{ interview.map }}"></iframe>
+								</div>								
+							</div>
+						</dd>
+						 
+						
+					<!--模块三-->
+						<!-- 用户是否激活 0-否；1-是 -->
+						<dd class="resume resume_web">
+							<div>
+								<span> 你已有可投递的在线简历：<a title="jason的简历" target="_blank" href="jianli.html"><strong>jason的简历</strong></a></span><br>
+								<span>简历更新于2014-07-01 15:53</span>
+							</div>
+							<span class="setBtns">
+								<a target="_blank" title="预览" href="h/resume/preview.html">预览</a> |
+								<a title="修改" target="_blank" href="jianli.html">修改</a>
+							</span>
+						</dd>
+                        <div class="saoma saoma_btm">
+                            <div class="dropdown_menu">
+                                <div class="drop_l">
+                                    <img width="131" height="131" src="{% static 'images/b533f6e729e74b418fcd6862bbde95dc_318969.jpg' %}">
+                                        <span>[仅限本人使用]</span>
+                                </div>
+                                <div class="drop_r">
+                                    <div class="drop_title"></div>
+                                    <p>
+                                        想知道HR在看简历嘛？<br>
+                                        想在微信中收到面试通知？<br>
+                                        <span>&lt;&lt; 扫一扫，给你解决</span>
+                                    </p>
+                                </div>
+                            </div>
+						</div>
+						<dd>
+							<!-- 用户是否激活 0-否；1-是 -->
+						</dd>
+					</dl>
+					<div id="weibolist"></div>
+				</div>	
+				
+				
+			<!--右边模块-->
+				<div class="content_r">
+				<!--模块一-->
+					<dl class="job_company">
+						<dt>
+							<a target="_blank" onclick="return f();" href="h/c/5004.html">
+								<img width="80" height="80" alt="职位发布者头像" src="{{ MEDIA_URL }}{{ interview.author.image }}" class="b2">
+								<div>
+									<h2 class="fl">
+										{{ interview.author.name }}
+										<img width="15" height="19" alt="IT求职网认证企业" src="{% static 'images/valid.png' %}">
+										<span class="dn">IT求职网认证企业</span>
+									</h2>
+                                    <br>
+                                    <p>{{ interview.author.position }}</p>      <!--发布人职位-->
+								</div>
+                            </a>
+						</dt>
+						<dd>
+							<ul class="c_feature reset">
+								<li><span>规模</span> {{ interview.get_scale_display }}</li>
+								<li><span>领域</span> {{ interview.domain }}</li>
+								<li>
+									<span>主页</span> 
+									<a rel="nofollow" title="{{ interview.companyHome }}" target="_blank" href="{{ interview.companyHome }}">{{ interview.companyHome }}</a>
+								</li>
+							</ul>
+							<h4>发展阶段</h4>
+							<ul class="c_feature reset">
+								<li><span>目前阶段</span> {{ interview.get_moment_display }}</li>
+							</ul>
+						</dd>
+					</dl>
+				<!--模块二-->	
+					<div id="myRecommend_jd">
+						<h2>可能适合你的职位 <i>薪资</i></h2>
+						<ul class="reset">
+                            {% for company_interview in  company_interviews  %}
+							<li>
+								<a target="_blank" href="{% url 'interdetail' company_interview.id %}">
+									<span class="f14">{{ company_interview.title }}</span>
+									<span class="c7">{{ company_interview.company }}</span>
+									<em>{{ company_interview.get_salary_display }}</em>
+								</a>
+							</li>
+                            {% endfor %}
+                            {% for trade_interview in  trade_interviews  %}
+							<li>
+								<a target="_blank" href="{% url 'interdetail' trade_interview.id %}">
+									<span class="f14">{{ trade_interview.title }}</span>
+									<span class="c7">{{ trade_interview.company }}</span>
+									<em>{{ trade_interview.get_salary_display }}</em>
+								</a>
+							</li>
+                            {% endfor %}
+						</ul>
+						<a target="_blank" class="more" href="h/jobs/mList.html">更多推荐职位&gt;&gt;</a>
+					</div><!--end #myRecommend-->
+				<!--模块三-->
+					<a class="eventAd" target="_blank" href="h/subject/s_zhouyou.html?utm_source=BD__lagou&amp;utm_medium=&amp;utm_campaign=zhouyou">
+					  <img width="280" height="135" src="{% static 'images/zhouyou.jpg' %}">
+					</a>
+				</div>
+			</div>  
+				
+			<!--隐藏区域不知道在哪里-->
+			<input type="hidden" id="userid" name="userid" value="68ad090107cb481fff4ef57dcc6681a1">
+			<input type="hidden" id="resend_type" name="type" value="1">
+			<input type="hidden" id="jobid" value="22194">
+			<input type="hidden" id="companyid" value="5004">
+			<input type="hidden" id="positionLng" value="">
+			<input type="hidden" id="positionLat" value="">
+		
+			<div id="tipOverlay"></div>
+
+			<script src="{% static 'js/job_detail.js' %}" type="text/javascript"></script>
+			<script src="{% static 'js/count.js' %}" type="text/javascript"></script>
+
+			<div class="clear"></div>
+			<input type="hidden" value="e789f5e7097b4c828e9d40ef39a6baf8" id="resubmitToken">
+			<a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
+		</div><!-- end #container -->
+{% endblock %}

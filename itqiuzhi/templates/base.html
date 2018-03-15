@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+{% block head%}
+{% endblock %}
+<body>
+    <div id="body">
+        <!--导航栏-->
+        {% block header %}
+         <div id="header">
+            <div class="wrapper">
+                <!--图片LOGO-->
+                <a href="index.html" class="logo">
+                    <img src="{% static 'images/logo.png' %}" width="229" height="43" alt="IT求职-专注互联网求职" />
+                </a>
+                <ul class="reset" id="navheader">
+                    <li ><a href="{% url 'index' %}">首页</a></li>
+                    <li ><a href="{% url 'interlist' %}" rel="nofollow">求职</a></li>
+                    <li ><a href="h/toForum.html" target="_blank">论坛</a></li>
+                    <li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
+                    <li ><a href="create.html" rel="nofollow">发布职位</a></li>
+                </ul>
+                    {% if request.user.is_authenticated %}
+                        <dl class="collapsible_menu">
+                            <dt>
+                                <span>{{ request.user.username }}&nbsp;</span>
+                                <span class="red dn" id="noticeDot-1"></span>
+                                <i></i>
+                            </dt>
+                            <dd style="display: none;"><a href="positions.html">我发布的职位</a></dd>
+                            <dd style="display: none;"><a href="positions.html">我收到的简历</a></dd>
+                            <dd class="btm" style="display: none;"><a href="myhome.html">我的公司主页</a></dd>
+                            <dd style="display: none;"><a href="list.html">我要找工作</a></dd>
+                            <dd style="display: none;"><a href="accountBind.html">帐号设置</a></dd>
+                            <dd class="logout" style="display: none;"><a href="{% url 'logout' %}" rel="nofollow">退出</a></dd>
+                        </dl>
+{#                    <li><a href="" onclick="return f()" rel="nofollow">{{ request.user.username }}</a></li>#}
+{#                    <li>|</li>#}
+{#                    <li><a href="{% url 'logout' %}" rel="nofollow">注销</a></li>#}
+                    {% else %}
+                    <ul class="loginTop">
+                        <li><a href="{% url 'login' %}" rel="nofollow">登录</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'register' %}" rel="nofollow">注册</a></li>
+                    </ul>
+                    {% endif %}
+            </div>
+         </div>
+        {% endblock %}
+
+        <!--内容区域-->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+    <!--页脚区域-->
+    {% block footer %}
+    <div id="footer">
+        <div class="wrapper">
+            <a href="h/about.html" target="_blank" rel="nofollow">DreamHLZ</a>
+            <a href="h/af/zhaopin.html" target="_blank">IT招聘</a>
+            <a href="http://e.weibo.com/lagou720" target="_blank" rel="nofollow">问题反馈</a>
+            <a class="footer_qr" href="javascript:void(0)" rel="nofollow">联系我们<i></i></a>
+            <div class="copyright">Copyright © 2018 DreamHLZ版权所有. </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    <!--js区域-->
+    {% block js %}
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popup.min.js' %}"></script>
+    <script>
+            function f() {
+                return false;
+            }
+    </script>
+    {% endblock %}
+</body>
+</html>
